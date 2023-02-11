@@ -15,6 +15,13 @@ Install this tool using `pip`:
 
 ## Usage
 
+For sending a simple text message to a user o group, run:
+
+    export TELEGRAM_TOKEN='bot123456:de4dbeefde4dbeefde4dbeefde4dbeefde4dbeef' 
+
+    $ tgm message send --chat-id 123456 --text 'Hello'
+    message-id: 676
+
 For help, run:
 
     telegram-cli --help

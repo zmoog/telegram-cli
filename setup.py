@@ -29,11 +29,14 @@ setup(
     packages=["telegram_cli"],
     entry_points="""
         [console_scripts]
-        telegram-cli=telegram_cli.cli:cli
+        tgm=telegram_cli.cli:cli
     """,
-    install_requires=["click"],
+    install_requires=[
+        "click",
+        "requests",
+    ],
     extras_require={
-        "test": ["pytest"]
+        "test": ["pytest", "pytest-recording"]
     },
     python_requires=">=3.7",
 )
