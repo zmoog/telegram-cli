@@ -10,32 +10,18 @@ def cli():
 
 
 @cli.group()
-# @click.option(
-#     '--project-id',
-#     '-p',
-#     type=click.INT,
-#     multiple=True)
 @click.pass_context
 def message(ctx: click.Context):
     ctx.ensure_object(dict)
-    # ctx.obj['project_id'] = project_id
 
 
 @message.command(name="send")
-# @click.option(
-#     "--start-date",
-#     type=click.DateTime(),
-#     default=as_str(now - dt.timedelta(hours=24)),
-#     help="Start date (default: 24 hours ago)"
-# )
 @click.option(
     "--text",
-    # type=click.DateTime(),
     required=True,
 )
 @click.option(
     "--chat-id",
-    # type=click.DateTime(),
     required=True,
 )
 @click.pass_context
