@@ -12,7 +12,7 @@ class Client:
         self.verbose = verbose
 
     @staticmethod
-    def from_envorinment(verbose: bool = False) -> "Client":
+    def from_environment(verbose: bool = False) -> "Client":
         """Create a client from the TELEGRAM_TOKEN environment variable."""
 
         if "TELEGRAM_TOKEN" not in os.environ:

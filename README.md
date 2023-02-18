@@ -24,6 +24,29 @@ For sending a simple text message to a user o group, run:
     $ tgm message send --text 'Hello' --chat-id 123456
     message-id: 676
 
+### Text from a stream (file or stdin)
+
+For sending the content of a text file as message text:
+
+    # you have a text file with a message you want to send
+    echo "hey dude" > message.txt 
+
+    # (1) use the `--text-file` option
+    tgm message send --chat-id 123456 --text-file message.txt 
+
+    # (2) use `<`
+    tgm message send --chat-id 123456 < message.txt 
+
+    # (3) use `|`
+    cat message.txt | tgm message send --chat-id 123456
+    # or
+    echo "hey dude, it's me again" | tgm message send --chat-id 123456 
+
+    # (4) type your message and send it by typing `CTRL+D`
+    tgm message send --chat-id 123456
+    Hey dude, yeah it's me again!
+    <CTRL+D>
+
 ### Parse modes
 
 For using one of the supported parse modes (`MarkdownV2` or `HTML`) of the entities in the message, run:
