@@ -14,8 +14,8 @@ interactions:
     uri: https://api.telegram.org/1234567890abcdef1234567890abcdef/sendMessage?chat_id=123456&text=%27Hello%2C+world%21%27
   response:
     body:
-      string: '{"ok":true,"result":{"message_id":665,"from":{"id":123,"is_bot":true,"first_name":"Hogwarts
-        Bot","username":"hogwarts_api_bot"},"chat":{"id":456,"first_name":"Maurizio","last_name":"Branca","username":"zmoog","type":"private"},"date":1675921959,"text":"''Hello,
+      string: '{"ok":true,"result":{"message_id":719,"from":{"id":1051994739,"is_bot":true,"first_name":"Hogwarts
+        Bot","username":"hogwarts_api_bot"},"chat":{"id":123456,"first_name":"Maurizio","last_name":"Branca","username":"zmoog","type":"private"},"date":1676700043,"text":"''Hello,
         world!''"}}'
     headers:
       Access-Control-Allow-Methods:
@@ -31,7 +31,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 09 Feb 2023 05:52:39 GMT
+      - Sat, 18 Feb 2023 06:00:43 GMT
       Server:
       - nginx/1.18.0
       Strict-Transport-Security:
