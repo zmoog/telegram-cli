@@ -1,3 +1,6 @@
+import sys
+from typing import TextIO
+
 import click
 
 from . import telegram
@@ -21,7 +24,14 @@ def message(ctx: click.Context):
 @message.command(name="send")
 @click.option(
     "--text",
-    required=True,
+    help="Text to send. If not provided, text will be read from a file or stdin.",
+    default=None,
+)
+@click.option(
+    "--text-file", 
+    help="Text file to read from. If not provided, stdin will be used.",
+    type=click.Path(file_okay=True, dir_okay=False, allow_dash=True),
+    default="-",
 )
 @click.option(
     "--chat-id",
@@ -33,13 +43,23 @@ def message(ctx: click.Context):
         ['HTML', 'MarkdownV2'],
         case_sensitive=False
     ),
-    default=None
+    default=None,
 )
 @click.pass_context
-def send(ctx: click.Context, text: str, chat_id: str, parse_mode: str):
+def send(ctx: click.Context, text: str, text_file: TextIO, chat_id: str, parse_mode: str):
+    """Send a text message to a chat."""
     
-    client = telegram.Client.from_envorinment(verbose=ctx.obj["verbose"])
-    resp = client.send(text, chat_id, parse_mode=parse_mode)
+    client = telegram.Client.from_environment(verbose=ctx.obj["verbose"])
+
+    if text:
+        message_text = text
+    elif text_file in ("-", "stdin"):
+        message_text = sys.stdin.read()
+    else:
+        with open(text_file, "r") as f:
+            message_text = f.read()
+
+    resp = client.send(message_text, chat_id, parse_mode=parse_mode)
 
     message_id = resp.get("result", {}).get("message_id", "No message id found")
     click.echo(f"message-id: {message_id}")
