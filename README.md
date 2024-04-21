@@ -47,7 +47,7 @@ For sending the content of a text file as message text:
     Hey dude, yeah it's me again!
     <CTRL+D>
 
-### Parse modes
+#### Parse modes
 
 For using one of the supported parse modes (`MarkdownV2` or `HTML`) of the entities in the message, run:
 
@@ -64,6 +64,17 @@ For help, run:
 You can also use:
 
     python -m telegram_cli --help
+
+### Send a file document
+
+You can also send file documents:
+
+    # use the `--file` option for any kind of file.
+    tgm message send-document --chat-id 123456 --file report.pdf   
+
+    # use the `--caption` option to add a caption to your document.
+    tgm message send-document --chat-id 123456 --file report.pdf --caption "Here is the last report."
+
 
 ## Development
 
