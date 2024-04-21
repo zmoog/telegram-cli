@@ -47,7 +47,7 @@ For sending the content of a text file as message text:
     Hey dude, yeah it's me again!
     <CTRL+D>
 
-### Parse modes
+#### Parse modes
 
 For using one of the supported parse modes (`MarkdownV2` or `HTML`) of the entities in the message, run:
 
@@ -65,6 +65,17 @@ You can also use:
 
     python -m telegram_cli --help
 
+### Send a file document
+
+You can also send file documents:
+
+    # use the `--file` option for any kind of file.
+    tgm message send-document --chat-id 123456 --file report.pdf   
+
+    # use the `--caption` option to add a caption to your document.
+    tgm message send-document --chat-id 123456 --file report.pdf --caption "Here is the last report."
+
+
 ## Development
 
 To contribute to this tool, first checkout the code. Then create a new virtual environment:
@@ -80,3 +91,16 @@ Now install the dependencies and test dependencies:
 To run the tests:
 
     pytest
+
+### Add new tests with Telegram API calls
+
+The pytest-recording pytest plugin records all HTTP requests and responses as a "cassette" in the `tests/cassettes/` folder.
+
+When you add a new test, you must run `pytest` using the `--record-mode` option. Here's an example:
+
+    pytest --record-mode=once test_send_message_document.py
+
+The `--record-mode` has multiple values:
+
+- `once` writes the HTTP traffic in a cassette once if there isn't an existing cassette for the test. If a cassette already exists, it uses its content for the test without sending any network traffic.
+- `rewrite` executes and rewrites all HTTP requests, even when a cassette already exists.

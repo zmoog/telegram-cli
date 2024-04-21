@@ -1,5 +1,5 @@
 import sys
-from typing import TextIO
+from typing import TextIO, Union
 
 import click
 
@@ -46,7 +46,7 @@ def message(ctx: click.Context):
     default=None,
 )
 @click.pass_context
-def send(ctx: click.Context, text: str, text_file: TextIO, chat_id: str, parse_mode: str):
+def send(ctx: click.Context, text: str, text_file: Union[str, TextIO], chat_id: str, parse_mode: str):
     """Send a text message to a chat."""
     
     client = telegram.Client.from_environment(verbose=ctx.obj["verbose"])
@@ -60,6 +60,33 @@ def send(ctx: click.Context, text: str, text_file: TextIO, chat_id: str, parse_m
             message_text = f.read()
 
     resp = client.send(message_text, chat_id, parse_mode=parse_mode)
+
+    message_id = resp.get("result", {}).get("message_id", "No message id found")
+    click.echo(f"message-id: {message_id}")
+
+@message.command(name="send-document")
+@click.option(
+    "--file", 
+    help="Filename of the document to send.",
+    type=click.Path(file_okay=True, dir_okay=False, allow_dash=True),
+    default="-",
+)
+@click.option(
+    "--chat-id",
+    required=True,
+)
+@click.option(
+    "--caption",
+    help="Caption for the document to send.",
+    default=None,
+)
+@click.pass_context
+def send_document(ctx: click.Context, file: str, chat_id: str, caption: str = None):
+    """Send a document to a chat (with an optional caption)."""
+    
+    client = telegram.Client.from_environment(verbose=ctx.obj["verbose"])
+
+    resp = client.send_document(file, chat_id, caption)
 
     message_id = resp.get("result", {}).get("message_id", "No message id found")
     click.echo(f"message-id: {message_id}")
