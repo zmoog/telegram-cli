@@ -80,3 +80,16 @@ Now install the dependencies and test dependencies:
 To run the tests:
 
     pytest
+
+### Add new tests with Telegram API calls
+
+The pytest-recording pytest plugin records all HTTP requests and responses as a "cassette" in the `tests/cassettes/` folder.
+
+When you add a new test, you must run `pytest` using the `--record-mode` option. Here's an example:
+
+    pytest --record-mode=once test_send_message_document.py
+
+The `--record-mode` has multiple values:
+
+- `once` writes the HTTP traffic in a cassette once if there isn't an existing cassette for the test. If a cassette already exists, it uses its content for the test without sending any network traffic.
+- `rewrite` executes and rewrites all HTTP requests, even when a cassette already exists.

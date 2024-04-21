@@ -36,7 +36,7 @@ setup(
         "requests",
     ],
     extras_require={
-        "test": ["pytest", "pytest-recording"]
+        "test": ["pytest", "pytest-recording", "ruff"]
     },
     python_requires=">=3.7",
 )
